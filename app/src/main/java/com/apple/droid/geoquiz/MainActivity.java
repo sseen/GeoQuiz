@@ -41,13 +41,13 @@ public class MainActivity extends AppCompatActivity {
         btTrue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,R.string.true_toast,Toast.LENGTH_SHORT).show();
+                checkAnswer(true);
             }
         });
         btFalse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,R.string.false_toast,Toast.LENGTH_SHORT).show();
+                checkAnswer(false);
             }
         });
         btNext.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +63,19 @@ public class MainActivity extends AppCompatActivity {
     private void updateQuestion() {
         int question = mQuestionBank[mCurrentIndex].getTextResId();
         tvQuestion.setText(question);
+    }
+
+    private void checkAnswer(boolean userPressedTrue) {
+        boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+
+        int messageResId = 0;
+        if (userPressedTrue == answerIsTrue) {
+            messageResId = R.string.true_toast;
+        } else {
+            messageResId = R.string.false_toast;
+        }
+
+        Toast.makeText(this, messageResId,Toast.LENGTH_SHORT).show();
     }
 
 }
