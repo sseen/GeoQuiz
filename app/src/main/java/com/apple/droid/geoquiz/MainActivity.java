@@ -1,8 +1,10 @@
 package com.apple.droid.geoquiz;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvQuestion;
 
     private static final String TAG = "MainActivity";
+    private static final String KEY_INDEX = "index";
 
     private Question[] mQuestionBank = new Question[] {
             new Question(R.string.question_australia,true),
@@ -34,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG,"onCreate(Bundle) called");
         setContentView(R.layout.activity_main);
+
+        if (savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX,0);
+        }
 
         tvQuestion = (TextView)findViewById(R.id.question_text_view);
         updateQuestion();
@@ -96,6 +103,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG,"onDestroy() called");
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        Log.i(TAG,"onSaveInstanceState");
+        outState.putInt(KEY_INDEX,mCurrentIndex);
     }
 
     private void updateQuestion() {
