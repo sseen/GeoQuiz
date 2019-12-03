@@ -3,6 +3,7 @@ package com.apple.droid.geoquiz;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btTrue;
     private Button btFalse;
     private Button btNext;
+    private Button btCheat;
     private TextView tvQuestion;
 
     private static final String TAG = "MainActivity";
@@ -66,6 +68,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
                 updateQuestion();
+            }
+        });
+
+        btCheat = findViewById(R.id.cheat_button);
+        btCheat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CheatActivity.class);
+                startActivity(intent);
             }
         });
 
