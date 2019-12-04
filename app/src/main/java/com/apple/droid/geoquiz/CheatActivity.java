@@ -2,10 +2,15 @@ package com.apple.droid.geoquiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -42,6 +47,24 @@ public class CheatActivity extends AppCompatActivity {
                     tvAnswer.setText(R.string.true_bt);
                 } else {
                     tvAnswer.setText(R.string.false_bt);
+                }
+                setAnswerShownResult(true);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    int cx = btShowAnswer.getWidth() / 2;
+                    int cy = btShowAnswer.getHeight() / 2;
+                    float radius = btShowAnswer.getWidth();
+                    Animator anim = ViewAnimationUtils.createCircularReveal(btShowAnswer,cx,cy,radius,0);
+                    anim.addListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            super.onAnimationEnd(animation);
+                            btShowAnswer.setVisibility(View.INVISIBLE);
+                        }
+                    });
+                    anim.start();
+                }else {
+                    btShowAnswer.setVisibility(View.INVISIBLE);
                 }
             }
         });
