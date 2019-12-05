@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btFalse;
     private Button btNext;
     private Button btCheat;
+    private Button btCrimeEntry;
     private TextView tvQuestion;
 
     private static final String TAG = "MainActivity";
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 updateQuestion();
             }
         });
-
+        //
         btCheat = findViewById(R.id.cheat_button);
         btCheat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +84,15 @@ public class MainActivity extends AppCompatActivity {
                 boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
                 Intent intent = CheatActivity.newIntent(MainActivity.this, answerIsTrue);
                 startActivityForResult(intent,REQUEST_CODE_CHEAT);
+            }
+        });
+        //
+        btCrimeEntry = findViewById(R.id.crime_entry);
+        btCrimeEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CrimeActivity.class);
+                startActivity(intent);
             }
         });
 
