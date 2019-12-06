@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         btCrimeEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CrimeActivity.class);
+                Intent intent = new Intent(MainActivity.this, CrimeListActivity.class);
                 startActivity(intent);
             }
         });
