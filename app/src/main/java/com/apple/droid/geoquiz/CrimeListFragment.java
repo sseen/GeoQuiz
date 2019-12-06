@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,8 +41,21 @@ public class CrimeListFragment extends Fragment {
     }
 
     private class CrimeHolder extends RecyclerView.ViewHolder {
+        private TextView tvTitle;
+        private TextView tvDate;
+        private  Crime mCrime;
+
+        public void bind(Crime crime) {
+            mCrime = crime;
+            tvTitle.setText(mCrime.getTitle());
+            tvDate.setText(mCrime.getDate().toString());
+        }
+
         public CrimeHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_crime, parent, false));
+
+            tvTitle = itemView.findViewById(R.id.crime_title);
+            tvDate = itemView.findViewById(R.id.crime_date);
         }
     }
 
@@ -60,7 +74,8 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull CrimeHolder holder, int position) {
-
+            Crime crime = mCrimes.get(position);
+            holder.bind(crime);
         }
 
         @Override
