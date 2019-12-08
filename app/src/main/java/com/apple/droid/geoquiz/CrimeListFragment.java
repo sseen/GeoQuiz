@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,11 +45,13 @@ public class CrimeListFragment extends Fragment {
         private TextView tvTitle;
         private TextView tvDate;
         private  Crime mCrime;
+        private ImageView imvSolved;
 
         public void bind(Crime crime) {
             mCrime = crime;
             tvTitle.setText(mCrime.getTitle());
             tvDate.setText(mCrime.getDate().toString());
+            imvSolved.setVisibility(crime.isSolved() ? View.VISIBLE : View.GONE);
         }
 
         public CrimeHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -56,6 +59,7 @@ public class CrimeListFragment extends Fragment {
 
             tvTitle = itemView.findViewById(R.id.crime_title);
             tvDate = itemView.findViewById(R.id.crime_date);
+            imvSolved = itemView.findViewById(R.id.crime_solved);
         }
     }
 
