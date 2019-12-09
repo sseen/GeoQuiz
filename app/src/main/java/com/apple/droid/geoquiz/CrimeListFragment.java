@@ -1,5 +1,6 @@
 package com.apple.droid.geoquiz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,7 @@ public class CrimeListFragment extends Fragment {
         mCrimeRecyclerView.setAdapter(mAdapter);
     }
 
-    private class CrimeHolder extends RecyclerView.ViewHolder {
+    private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView tvTitle;
         private TextView tvDate;
         private  Crime mCrime;
@@ -56,10 +57,19 @@ public class CrimeListFragment extends Fragment {
 
         public CrimeHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_crime, parent, false));
+            itemView.setOnClickListener(this);
 
             tvTitle = itemView.findViewById(R.id.crime_title);
             tvDate = itemView.findViewById(R.id.crime_date);
             imvSolved = itemView.findViewById(R.id.crime_solved);
+        }
+
+        @Override
+        public void onClick(View v) {
+            // Intent intent = new Intent(getActivity(), CrimeActivity.class);
+            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+
+            startActivity(intent);
         }
     }
 
